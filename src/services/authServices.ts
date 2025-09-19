@@ -1,4 +1,5 @@
 import api from "@/lib/api";
+import { RegisterModel } from "@/model/registerModel";
 
 export const authService = {
   login: async (username: string, password: string) => {
@@ -17,5 +18,26 @@ export const authService = {
   },
   logout: () => {
     localStorage.removeItem("token");
+  },
+
+  register: async (model: RegisterModel) => {
+    const { data } = await api.post("/api/Account/Registration", model);
+    localStorage.setItem("email", data.data.email);
+    return data;
+  },
+
+  verificationEmail: async (otp: string) => {
+    const { data } = await api.post("/api/Account/OtpVerification", {
+      otp,
+    });
+    return data;
+  },
+
+  sendOtp: async () => {
+    const email = localStorage.getItem("email");
+    const { data } = await api.post("/api/Account/sendotp", {
+      email,
+    });
+    return data;
   },
 };

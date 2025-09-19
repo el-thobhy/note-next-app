@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 import Checkbox from "@/components/form/input/Checkbox";
 import Input from "@/components/form/input/InputField";
@@ -33,10 +34,9 @@ export default function SignInForm() {
         setLoading(false);
         router.push("/");
       }, 2000);
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (err: any) {
       console.log("Login error:", err);
-      alert(err?.data?.message || "Login failed");
+      alert(err?.response?.data?.message || "Login failed");
     } finally {
       // setLoading(false);
     }
