@@ -1,13 +1,32 @@
+"use client";
+
 import ThemeTogglerTwo from "@/components/common/ThemeTogglerTwo";
 
 import { ThemeProvider } from "@/context/ThemeContext";
-import React from "react";
+import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 
 export default function AuthLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+ const router = useRouter();
+  const [checked, setChecked] = useState(false);
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      router.push("/");
+    } else {
+      setChecked(true);
+    }
+  }, [router]);
+
+  if (!checked) {
+    return null; // atau tampilkan loader/spinner
+  }
+
   return (
     <div>
       <div className="relative p-6 bg-white z-1 dark:bg-gray-900 sm:p-0">

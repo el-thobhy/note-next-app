@@ -2,6 +2,7 @@ import Link from "next/link";
 import React from "react";
 
 interface AlertProps {
+  visible?: boolean; // Whether the alert is visible
   variant: "success" | "error" | "warning" | "info"; // Alert type
   title: string; // Title of the alert
   message: string; // Message of the alert
@@ -11,6 +12,7 @@ interface AlertProps {
 }
 
 const Alert: React.FC<AlertProps> = ({
+  visible = true,
   variant,
   title,
   message,
@@ -114,7 +116,7 @@ const Alert: React.FC<AlertProps> = ({
 
   return (
     <div
-      className={`rounded-xl border p-4 ${variantClasses[variant].container}`}
+      className={`rounded-xl border p-4 ${variantClasses[variant].container} ${visible ? 'block' : 'hidden'}`}
     >
       <div className="flex items-start gap-3">
         <div className={`-mt-0.5 ${variantClasses[variant].icon}`}>
